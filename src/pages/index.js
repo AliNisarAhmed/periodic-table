@@ -1,21 +1,51 @@
-import React from "react"
-import { Link } from "gatsby"
+import React from "react";
+import { graphql } from "gatsby";
 
-import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
+import Element from "../components/Element";
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link>
-  </Layout>
-)
+import Layout from "../components/layout";
 
-export default IndexPage
+import "./main.scss";
+
+const IndexPage = ({ data }) => {
+  console.log(data);
+  const { elements } = data.dataJson;
+  const normalElements = elements.filter(
+    element =>
+      element.number < 57 ||
+      element.number > 71 ||
+      element.number < 89 ||
+      element.number > 103
+  );
+  console.log(normalElements);
+  return (
+    <Layout>
+      <div className="container">
+        {data.dataJson.elements.map(element => (
+          <Element
+            key={element.name}
+            name={element.name}
+            symbol={element.symbol}
+            mass={element.atomic_mass.toFixed(2)}
+            number={element.number}
+          />
+        ))}
+      </div>
+    </Layout>
+  );
+};
+
+export const query = graphql`
+  query {
+    dataJson {
+      elements {
+        name
+        symbol
+        atomic_mass
+        number
+      }
+    }
+  }
+`;
+
+export default IndexPage;
