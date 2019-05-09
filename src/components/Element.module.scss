@@ -2,39 +2,46 @@
   padding: 10px;
   border: 1px solid rgb(228, 221, 221);
   background-color: black;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   font-size: 16px;
   color: rgb(228, 221, 221);
+
+  border: 2px solid transparent;
 
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  transition: width 0.4s, height 0.4s;
+  transition: all 0.4s;
 
   &:hover {
-    width: 80px;
-    height: 80px;
+    transform: scaleX(1.4) scaleY(1.4);
+    z-index: 2;
+    border: 2px solid goldenrod;
 
     .name {
       display: inline-block;
+      transform: scaleX(0.55) scaleY(0.55);
     }
 
     .number {
       display: inline-block;
+      transform: scaleX(0.6) scaleY(0.6);
     }
 
     .mass {
       display: inline-block;
+      transform: scaleX(0.6) scaleY(0.6);
     }
   }
 }
 
 .symbol {
-  font-size: 40px;
+  font-size: 140%;
   color: rgb(228, 221, 221);
+  font-weight: bold;
 }
 
 .name {
@@ -47,7 +54,7 @@
 .number {
   display: none;
   position: absolute;
-  right: 0;
+  left: 0;
   top: 0;
   transition: opacity 0.4s ease 0.6s;
 }
@@ -55,7 +62,24 @@
 .mass {
   display: none;
   position: absolute;
-  left: 0;
+  right: 0;
   top: 0;
   transition: opacity 1s ease 1s;
+}
+
+.h {
+  grid-column: 1 / 18;
+}
+
+.be {
+  grid-column: 2 / 13;
+}
+
+.mg {
+  grid-column: 2 / 13;
+}
+
+.ba,
+.ra {
+  grid-column: 2 / span 2;
 }

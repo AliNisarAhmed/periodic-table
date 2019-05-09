@@ -4,7 +4,11 @@ import ElementStyles from "./Element.module.scss";
 
 export default function Element(props) {
   return (
-    <div className={ElementStyles.box}>
+    <div
+      className={`${ElementStyles.box} ${
+        ElementStyles[props.symbol.toLowerCase()]
+      }`}
+    >
       <span className={ElementStyles.mass}>{props.mass}</span>
       <span className={ElementStyles.number}>{props.number}</span>
       <span className={ElementStyles.symbol}>{props.symbol}</span>

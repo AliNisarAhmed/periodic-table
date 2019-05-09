@@ -12,21 +12,18 @@ const IndexPage = ({ data }) => {
   const { elements } = data.dataJson;
   const normalElements = elements.filter(
     element =>
-      element.number < 57 ||
-      element.number > 71 ||
-      element.number < 89 ||
-      element.number > 103
+      element.category !== "lanthanide" && element.category !== "actinide"
   );
-  console.log(normalElements);
+  console.log("filtered", normalElements);
   return (
     <Layout>
       <div className="container">
-        {data.dataJson.elements.map(element => (
+        {normalElements.map(element => (
           <Element
             key={element.name}
             name={element.name}
             symbol={element.symbol}
-            mass={element.atomic_mass.toFixed(2)}
+            mass={element.atomic_mass.toFixed(0)}
             number={element.number}
           />
         ))}
@@ -43,6 +40,7 @@ export const query = graphql`
         symbol
         atomic_mass
         number
+        category
       }
     }
   }
