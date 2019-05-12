@@ -1,3 +1,5 @@
+@import "../styles/colors";
+
 .box {
   padding: 10px;
   border: 1px solid rgb(228, 221, 221);
@@ -6,8 +8,6 @@
   height: 40px;
   font-size: 16px;
   color: rgb(228, 221, 221);
-
-  border: 2px solid transparent;
 
   position: relative;
   display: flex;
@@ -40,7 +40,6 @@
 
 .symbol {
   font-size: 140%;
-  color: rgb(228, 221, 221);
   font-weight: bold;
 }
 
@@ -82,4 +81,54 @@
 .ba,
 .ra {
   grid-column: 2 / span 2;
+}
+
+.nonmetal {
+  border: 2px solid $nonmetal;
+  color: $nonmetal;
+}
+
+.noble_gas {
+  border: 2px solid $nobleGas;
+  color: $nobleGas;
+}
+
+.alkali_metal {
+  border: 2px solid $alkaliMetal;
+  color: $alkaliMetal;
+}
+
+.alkaline_earth_metal {
+  border: 2px solid $alkalineEarthMetal;
+  color: $alkalineEarthMetal;
+}
+
+.metalloid {
+  border: 2px solid $metalloid;
+  color: $metalloid;
+}
+
+.transition_metal {
+  border: 2px solid $transitionMetal;
+  color: $transitionMetal;
+}
+
+.metal {
+  border: 2px solid $metal;
+  color: $metal;
+}
+
+.halogen {
+  border: 2px solid $halogen;
+  color: $halogen;
+}
+
+.lanthanoid {
+  border: 2px solid $lanthanoid;
+  color: $lanthanoid;
+}
+
+.actinoid {
+  border: 2px solid $actinoid;
+  color: $actinoid;
 }
