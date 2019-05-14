@@ -4,6 +4,10 @@ import { graphql } from "gatsby";
 import Element from "../components/Element";
 
 import Layout from "../components/layout";
+import SearchBy from "../components/SearchBy";
+import Input from "../components/Input";
+
+import getFilterFunction from "../lib/getFilterFunction";
 
 import "./main.scss";
 
@@ -12,25 +16,42 @@ class IndexPage extends React.Component {
     super(props);
 
     this.state = {
+      term: "name", // the term by which search is performed, once user starts typing in the box
       name: "",
+      symbol: "",
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleRadioButton = this.handleRadioButton.bind(this);
   }
 
-  handleInputChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
+  handleInputChange(value) {
+    // gets called from inside the Input Component with the "value" of the input tag
+    this.setState(() => ({
+      [this.state.term]: value,
+    }));
+  }
+
+  handleRadioButton(e) {
+    // get called from SearchBy Component with the value of the selected Radio button
+    e.persist();
+    this.setState(() => ({
+      term: e.target.value,
+    }));
   }
 
   render() {
     const { data } = this.props;
     const { elements } = data.dataJson;
 
-    const displayedElements = elements.filter(element => {
-      return element.name.toLowerCase().includes(this.state.name);
-    });
+    const searchActive = !!(this.state.name && this.state.symbol); // turns "True" when user stars typing
+
+    const displayedElements = elements.filter(
+      getFilterFunction(this.state.term, this.state)
+    ); // these are all the elements to be displayed on the screen, after applying search term
+
+    //=============================================================================================================
+    // Separating Actinides and Lanthanides from "normal" elements, so that they can be displayed separately
 
     const innerTransitionMetals = displayedElements.filter(
       element =>
@@ -41,15 +62,16 @@ class IndexPage extends React.Component {
       element =>
         element.category !== "lanthanide" && element.category !== "actinide"
     );
+    //=============================================================================================================
 
     return (
       <Layout>
-        <input
-          value={this.state.name}
-          onChange={this.handleInputChange}
-          name="name"
+        <SearchBy
+          term={this.state.term}
+          handleRadioButton={this.handleRadioButton}
         />
-        <div className="container">
+        <Input handleInputChange={this.handleInputChange} />
+        <div className={`container ${searchActive && "center"}`}>
           {normalElements.map(element => (
             <Element
               key={element.name}
@@ -62,7 +84,7 @@ class IndexPage extends React.Component {
             />
           ))}
         </div>
-        <div className="innerTransitionMetals">
+        <div className={`innerTransitionMetals ${searchActive && "center"}`}>
           {innerTransitionMetals.map(element => (
             <Element
               key={element.name}
