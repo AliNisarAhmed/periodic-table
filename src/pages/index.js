@@ -71,18 +71,26 @@ class IndexPage extends React.Component {
           handleRadioButton={this.handleRadioButton}
         />
         <Input handleInputChange={this.handleInputChange} />
-        <div className={`container ${searchActive && "center"}`}>
-          {normalElements.map(element => (
-            <Element
-              key={element.name}
-              name={element.name}
-              symbol={element.symbol}
-              mass={element.atomic_mass.toFixed(0)}
-              number={element.number}
-              category={element.category}
-              group={element.group}
-            />
-          ))}
+        <div
+          className={`${
+            this.state.name && this.state.symbol ? "center" : "container"
+          }`}
+        >
+          {normalElements.length === 0 ? (
+            <p>No Match</p>
+          ) : (
+            normalElements.map(element => (
+              <Element
+                key={element.name}
+                name={element.name}
+                symbol={element.symbol}
+                mass={element.atomic_mass.toFixed(0)}
+                number={element.number}
+                category={element.category}
+                group={element.group}
+              />
+            ))
+          )}
         </div>
         <div className={`innerTransitionMetals ${searchActive && "center"}`}>
           {innerTransitionMetals.map(element => (

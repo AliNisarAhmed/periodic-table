@@ -26,6 +26,15 @@ export default class SearchBy extends Component {
             />
             Symbol:
           </label>
+          <label>
+            <input
+              type="radio"
+              value="number"
+              name="searchBy"
+              onChange={this.props.handleRadioButton}
+            />
+            Number:
+          </label>
         </fieldset>
       </form>
     );
